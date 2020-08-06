@@ -2,7 +2,7 @@ import 'package:doctor_go/components/CircleButton.dart';
 import 'package:doctor_go/components/LoginField.dart';
 import 'package:doctor_go/components/RoundedButton.dart';
 import 'package:doctor_go/components/StepsHeader.dart';
-import 'package:doctor_go/pages/RegistrationStep2.dart';
+import 'package:doctor_go/pages/RegistrationStep2_page.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
@@ -15,6 +15,8 @@ class RegistrationStep1 extends StatefulWidget {
 }
 
 class _RegistrationStep1State extends State<RegistrationStep1> {
+  //mi globalKey para el Form
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,9 +35,6 @@ class _RegistrationStep1State extends State<RegistrationStep1> {
               StepsHeader(
                 colorOne: kColorDoctor,
                 colorTwo: Color(0xFF282F3F),
-                onTapTwo: () {
-                  Navigator.pushNamed(context, RegistrationStep2.id);
-                },
                 colorTree: Color(0xFF282F3F),
               ),
               SizedBox(
@@ -56,54 +55,98 @@ class _RegistrationStep1State extends State<RegistrationStep1> {
                   child: SingleChildScrollView(
                     child: Padding(
                       padding: EdgeInsets.all(20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 30,
-                          ),
-                          MyLoginField(
-                            backgroundColor: Color(0xFFF0F0F0),
-                            obscureText: false,
-                            hintText: "Usuario",
-                            keyboardType: TextInputType.emailAddress,
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          MyLoginField(
-                            backgroundColor: Color(0xFFF0F0F0),
-                            obscureText: false,
-                            hintText: "Correo",
-                            keyboardType: TextInputType.emailAddress,
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          MyLoginField(
-                            backgroundColor: Color(0xFFF0F0F0),
-                            hintText: "Contraseña",
-                            obscureText: true,
-                          ),
-                          SizedBox(height: 20),
-                          MyLoginField(
-                            backgroundColor: Color(0xFFF0F0F0),
-                            hintText: "Confirmar contraseña",
-                            obscureText: true,
-                          ),
-                          SizedBox(height: 20),
-                          RoundedButton(
-                            text: Text(
-                              'SIGUIENTE',
-                              style: TextStyle(color: Colors.white),
+                      child: Form(
+                        autovalidate: true,
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              height: 30,
                             ),
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, RegistrationStep2.id);
-                            },
-                            colour: kColorDoctor,
-                          ),
-                        ],
+                            Container(
+                              decoration: kBoxFormDecoration,
+                              child: TextFormField(
+                                decoration:
+                                    const InputDecoration(labelText: 'Usuario'),
+                                keyboardType: TextInputType.text,
+                                validator: (value) {
+                                  if (value.length < 5) {
+                                    return 'Digite un nombre de mas de 4 caracteres';
+                                  }
+                                },
+                                onChanged: null,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              decoration: kBoxFormDecoration,
+                              child: TextFormField(
+                                decoration: const InputDecoration(
+                                    labelText: 'correo electronico'),
+                                keyboardType: TextInputType.emailAddress,
+                                validator: (value) {
+                                  if (value.length < 2) {
+                                    // falta condicion
+                                    return 'Este correo no parece real';
+                                  }
+                                },
+                                onChanged: null,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              decoration: kBoxFormDecoration,
+                              child: TextFormField(
+                                obscureText: true,
+                                decoration: const InputDecoration(
+                                    labelText: 'contraseña'),
+                                keyboardType: TextInputType.emailAddress,
+                                validator: (value) {
+                                  if (value.length < 2) {
+                                    //falta condicion
+                                    // falta condicion
+                                    return 'Este correo no parece real';
+                                  }
+                                },
+                                onChanged: null,
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            Container(
+                              decoration: kBoxFormDecoration,
+                              child: TextFormField(
+                                decoration: const InputDecoration(
+                                    labelText: 'Confirmar contraseña'),
+                                keyboardType: TextInputType.emailAddress,
+                                validator: (value) {
+                                  if (value.length < 2) {
+                                    //falta condicion si es igual a la anterior
+                                    // falta condicion
+                                    return 'Este correo no parece real';
+                                  }
+                                },
+                                onChanged: null,
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            RoundedButton(
+                              text: Text(
+                                'SIGUIENTE',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, RegistrationStep2.id);
+                              },
+                              colour: kColorDoctor,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

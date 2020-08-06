@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               SizedBox(
-                height: 50,
+                height: 30,
               ),
               Image.asset(
                 'images/doctorLogo.png',
@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               SizedBox(
-                height: 40,
+                height: 20,
               ),
               Expanded(
                 child: FadeAnimation(
@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             SizedBox(
-                              height: 30,
+                              height: 10,
                             ),
                             MyLoginField(
                               backgroundColor: Color(0xFF282F3F),
@@ -99,12 +99,12 @@ class _LoginPageState extends State<LoginPage> {
                               style: kBlueTextStyle,
                             ),
                             SizedBox(
-                              height: 100,
+                              height: 80,
                             ),
                             RichText(
                               text: TextSpan(
                                 style: TextStyle(
-                                    color: Colors.grey, fontSize: 20.0),
+                                    color: Colors.grey, fontSize: 15),
                                 children: <TextSpan>[
                                   TextSpan(text: '¿No tienes una cuenta? '),
                                   TextSpan(

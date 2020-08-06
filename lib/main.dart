@@ -1,10 +1,10 @@
 import 'package:doctor_go/constants.dart';
-import 'package:doctor_go/pages/RegistrationStep2.dart';
+import 'package:doctor_go/pages/RegistrationStep2_page.dart';
 import 'package:doctor_go/pages/login_page.dart';
 import 'package:doctor_go/pages/registrationStep1_page.dart';
 import 'package:flutter/material.dart';
 
-import 'pages/RegistrationStep3.dart';
+import 'pages/RegistrationStep3_Page.dart';
 
 void main() {
   runApp(MyApp());

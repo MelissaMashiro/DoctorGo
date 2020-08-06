@@ -1,11 +1,9 @@
-import 'package:doctor_go/components/CircleButton.dart';
 import 'package:doctor_go/components/RoundedButton.dart';
 import 'package:doctor_go/components/StepsHeader.dart';
-import 'package:doctor_go/pages/registrationStep1_page.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
-import 'RegistrationStep3.dart';
+import 'RegistrationStep3_Page.dart';
 
 class RegistrationStep2 extends StatefulWidget {
   static String id = 'registration_step2_screen';
@@ -28,6 +26,10 @@ class _RegistrationStep2State extends State<RegistrationStep2> {
   String departamentoSeleccionado;
   String ciudadSeleccionado;
 
+  //mi globalKey para el Form
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _autoValidate = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,12 +49,6 @@ class _RegistrationStep2State extends State<RegistrationStep2> {
                 colorOne: kColorDoctor,
                 colorTwo: kColorDoctor,
                 colorTree: Color(0xFF282F3F),
-                onTapOne: () {
-                  Navigator.pushNamed(context, RegistrationStep1.id);
-                },
-                onTapTree: () {
-                  Navigator.pushNamed(context, RegistrationStep3.id);
-                },
               ),
               SizedBox(
                 height: 10,
@@ -72,50 +68,98 @@ class _RegistrationStep2State extends State<RegistrationStep2> {
                   child: SingleChildScrollView(
                     child: Padding(
                       padding: EdgeInsets.all(20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 30,
-                          ),
-                          _nombreInput('Nombre'),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          _apellidoInput('Apellido'),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          _ccInput('Cédula ciudadanía'),
-                          SizedBox(height: 20),
-                          _crearFecha(context),
-                          SizedBox(height: 20),
-                          _dropDownGenero('seleccione un género'),
-                          SizedBox(height: 20),
-                          _dropDownTipoSangre('seleccione tipo de sangre'),
-                          SizedBox(height: 20),
-                          _dropDownEstadoCivil('seleccione estado civil'),
-                          SizedBox(height: 20),
-                          _numberInput('Digite su numero de celular'),
-                          SizedBox(height: 20),
-                          _dropDownPais('seleccione pais'),
-                          SizedBox(height: 20),
-                          _dropDownDepartamento('seleccione departamento'),
-                          SizedBox(height: 20),
-                          _dropDownCiudad('Ciudad'),
-                          SizedBox(height: 20),
-                          RoundedButton(
-                            text: Text(
-                              'SIGUIENTE',
-                              style: TextStyle(color: Colors.white),
+                      child: Form(
+                        autovalidate: true,
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(
+                              height: 30,
                             ),
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, RegistrationStep3.id);
-                            },
-                            colour: kColorDoctor,
-                          ),
-                        ],
+                            Container(
+                              decoration: kBoxFormDecoration,
+                              child: TextFormField(
+                                decoration:
+                                    const InputDecoration(labelText: 'Name'),
+                                keyboardType: TextInputType.text,
+                                validator: (value) {
+                                  if (value.length < 2) {
+                                    return 'Este nombre no parece ser real';
+                                  }
+                                },
+                                onChanged: null,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              decoration: kBoxFormDecoration,
+                              child: TextFormField(
+                                decoration: const InputDecoration(
+                                    labelText: 'Apellidos'),
+                                keyboardType: TextInputType.text,
+                                validator: (value) {
+                                  if (value.length < 2) {
+                                    return 'Este apellido no parece ser real';
+                                  }
+                                },
+                                onChanged: null,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              decoration: kBoxFormDecoration,
+                              child: TextFormField(
+                                decoration: const InputDecoration(
+                                    labelText: 'Cédula de ciudadania'),
+                                keyboardType: TextInputType.number,
+                                validator: (value) {
+                                  if (value.length < 5) {
+                                    return 'Por favor, digite un numero de cc válido';
+                                  }
+                                },
+                                onChanged: null,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            SizedBox(height: 20),
+                            _crearFecha(context),
+                            SizedBox(height: 20),
+                            _dropDownGenero('seleccione un género'),
+                            SizedBox(height: 20),
+                            _dropDownTipoSangre('seleccione tipo de sangre'),
+                            SizedBox(height: 20),
+                            _dropDownEstadoCivil('seleccione estado civil'),
+                            SizedBox(height: 20),
+                            _numberInput('Digite su numero de celular'),
+                            SizedBox(height: 20),
+                            _dropDownPais('seleccione pais'),
+                            SizedBox(height: 20),
+                            _dropDownDepartamento('seleccione departamento'),
+                            SizedBox(height: 20),
+                            _dropDownCiudad('Ciudad'),
+                            SizedBox(height: 20),
+                            Center(
+                              child: RoundedButton(
+                                text: Text(
+                                  'SIGUIENTE',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, RegistrationStep3.id);
+                                },
+                                colour: kColorDoctor,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -131,16 +175,15 @@ class _RegistrationStep2State extends State<RegistrationStep2> {
   Widget _nombreInput(String hintText) {
     return Container(
       decoration: kBoxFormDecoration,
-      child: TextField(
-        style: TextStyle(color: Colors.grey),
-        cursorColor: Colors.white,
-        autofocus: false,
-        textCapitalization: TextCapitalization.sentences,
-        decoration: InputDecoration(
-          hintStyle: TextStyle(color: Colors.grey),
-          hintText: hintText,
-        ),
-        onChanged: (valor) {},
+      child: TextFormField(
+        decoration: const InputDecoration(labelText: 'Name'),
+        keyboardType: TextInputType.text,
+        validator: (value) {
+          if (value.length < 2) {
+            return 'Name not long enough';
+          }
+        },
+        onChanged: null,
       ),
     );
   }

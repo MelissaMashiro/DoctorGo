@@ -32,12 +32,6 @@ class _RegistrationStep3State extends State<RegistrationStep3> {
                 colorOne: kColorDoctor,
                 colorTwo: kColorDoctor,
                 colorTree: kColorDoctor,
-                onTapOne: () {
-                  Navigator.pushNamed(context, RegistrationStep1.id);
-                },
-                onTapTree: () {
-                  Navigator.pushNamed(context, RegistrationStep3.id);
-                },
               ),
               SizedBox(
                 height: 50,
