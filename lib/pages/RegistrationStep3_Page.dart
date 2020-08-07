@@ -1,9 +1,9 @@
 import 'package:doctor_go/components/RoundedButton.dart';
 import 'package:doctor_go/components/StepsHeader.dart';
+import 'package:doctor_go/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
-import 'registrationStep1_page.dart';
 
 class RegistrationStep3 extends StatefulWidget {
   static String id = 'registration_step3_screen';
@@ -25,16 +25,13 @@ class _RegistrationStep3State extends State<RegistrationStep3> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              SizedBox(
-                height: 20,
-              ),
-              StepsHeader(
-                colorOne: kColorDoctor,
-                colorTwo: kColorDoctor,
-                colorTree: kColorDoctor,
-              ),
-              SizedBox(
-                height: 50,
+              Padding(
+                padding: const EdgeInsets.only(top: 25, bottom: 25),
+                child: StepsHeader(
+                  colorOne: kColorDoctor,
+                  colorTwo: kColorDoctor,
+                  colorTree: kColorDoctor,
+                ),
               ),
               Center(
                 child: Text(
@@ -57,7 +54,8 @@ class _RegistrationStep3State extends State<RegistrationStep3> {
                           'COMPLETA TU PERFIL',
                           style: TextStyle(color: kColorDoctor),
                         ),
-                        onPressed: null,
+                        onPressed: () =>
+                            Navigator.pushNamed(context, ProfilePage.id),
                         colour: Colors.white,
                       ),
                       RoundedButton(

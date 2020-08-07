@@ -28,7 +28,38 @@ class _RegistrationStep2State extends State<RegistrationStep2> {
 
   //mi globalKey para el Form
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   bool _autoValidate = false;
+  String _nombres;
+  String _apellidos;
+  String _cedula;
+
+  String validateNomApe(String value) {
+    //mejorar, que no permita simbolos
+    if (value.length < 3)
+      return 'digite un nombre o apellido valido';
+    else
+      return null;
+  }
+
+  String validateCedula(String value) {
+    if (value.length < 6)
+      return 'Digite una cédula válida';
+    else
+      return null;
+  }
+
+  //guardada final de la informacion si todo es correcto
+  void _validateInputs() {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      Navigator.pushNamed(context, RegistrationStep3.id);
+    } else {
+      setState(() {
+        _autoValidate = true;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +73,13 @@ class _RegistrationStep2State extends State<RegistrationStep2> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              SizedBox(
-                height: 20,
-              ),
-              StepsHeader(
-                colorOne: kColorDoctor,
-                colorTwo: kColorDoctor,
-                colorTree: Color(0xFF282F3F),
-              ),
-              SizedBox(
-                height: 10,
+              Padding(
+                padding: const EdgeInsets.only(top: 15, bottom: 15),
+                child: StepsHeader(
+                  colorOne: kColorDoctor,
+                  colorTwo: kColorDoctor,
+                  colorTree: Color(0xFF282F3F),
+                ),
               ),
               Center(
                 child: Text(
@@ -69,30 +97,26 @@ class _RegistrationStep2State extends State<RegistrationStep2> {
                     child: Padding(
                       padding: EdgeInsets.all(20),
                       child: Form(
-                        autovalidate: true,
+                        autovalidate: false,
                         key: _formKey,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            SizedBox(
-                              height: 30,
-                            ),
-                            Container(
-                              decoration: kBoxFormDecoration,
-                              child: TextFormField(
-                                decoration:
-                                    const InputDecoration(labelText: 'Name'),
-                                keyboardType: TextInputType.text,
-                                validator: (value) {
-                                  if (value.length < 2) {
-                                    return 'Este nombre no parece ser real';
-                                  }
-                                },
-                                onChanged: null,
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 25, bottom: 25),
+                              child: Container(
+                                decoration: kBoxFormDecoration,
+                                child: TextFormField(
+                                  decoration:
+                                      const InputDecoration(labelText: 'Name'),
+                                  keyboardType: TextInputType.text,
+                                  validator: validateNomApe,
+                                  onSaved: (String val) {
+                                    _nombres = val;
+                                  },
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 20,
                             ),
                             Container(
                               decoration: kBoxFormDecoration,
@@ -100,12 +124,10 @@ class _RegistrationStep2State extends State<RegistrationStep2> {
                                 decoration: const InputDecoration(
                                     labelText: 'Apellidos'),
                                 keyboardType: TextInputType.text,
-                                validator: (value) {
-                                  if (value.length < 2) {
-                                    return 'Este apellido no parece ser real';
-                                  }
+                                validator: validateNomApe,
+                                onSaved: (String val) {
+                                  _apellidos = val;
                                 },
-                                onChanged: null,
                               ),
                             ),
                             SizedBox(
@@ -117,12 +139,10 @@ class _RegistrationStep2State extends State<RegistrationStep2> {
                                 decoration: const InputDecoration(
                                     labelText: 'Cédula de ciudadania'),
                                 keyboardType: TextInputType.number,
-                                validator: (value) {
-                                  if (value.length < 5) {
-                                    return 'Por favor, digite un numero de cc válido';
-                                  }
+                                validator: validateCedula,
+                                onSaved: (String val) {
+                                  _cedula = val;
                                 },
-                                onChanged: null,
                               ),
                             ),
                             SizedBox(
@@ -151,10 +171,8 @@ class _RegistrationStep2State extends State<RegistrationStep2> {
                                   'SIGUIENTE',
                                   style: TextStyle(color: Colors.white),
                                 ),
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, RegistrationStep3.id);
-                                },
+                                onPressed:(){Navigator.pushNamed(context, RegistrationStep3.id);},
+                                // _validateInputs,
                                 colour: kColorDoctor,
                               ),
                             ),

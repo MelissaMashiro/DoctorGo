@@ -1,6 +1,8 @@
 import 'package:doctor_go/constants.dart';
 import 'package:doctor_go/pages/RegistrationStep2_page.dart';
 import 'package:doctor_go/pages/login_page.dart';
+import 'package:doctor_go/pages/nucleoFamiliar_page.dart';
+import 'package:doctor_go/pages/profile_page.dart';
 import 'package:doctor_go/pages/registrationStep1_page.dart';
 import 'package:flutter/material.dart';
 
@@ -21,12 +23,16 @@ class MyApp extends StatelessWidget {
         primaryColor: kPrimaryBarColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: LoginPage.id,
+      // initialRoute: LoginPage.id,
+      initialRoute: ProfilePage.id,
       routes: {
+        ProfilePage.id: (context) => ProfilePage(),
         LoginPage.id: (context) => LoginPage(),
         RegistrationStep1.id: (context) => RegistrationStep1(),
         RegistrationStep2.id: (context) => RegistrationStep2(),
-        RegistrationStep3.id: (context) => RegistrationStep3()
+        RegistrationStep3.id: (context) => RegistrationStep3(),
+        NucleoFamiliar.id: (context) => NucleoFamiliar()
+        //ProfilePage.id: (context) => ProfilePage()
       },
     );
   }

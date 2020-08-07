@@ -1,5 +1,3 @@
-import 'package:doctor_go/components/CircleButton.dart';
-import 'package:doctor_go/components/LoginField.dart';
 import 'package:doctor_go/components/RoundedButton.dart';
 import 'package:doctor_go/components/StepsHeader.dart';
 import 'package:doctor_go/pages/RegistrationStep2_page.dart';
@@ -17,6 +15,50 @@ class RegistrationStep1 extends StatefulWidget {
 class _RegistrationStep1State extends State<RegistrationStep1> {
   //mi globalKey para el Form
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  bool _autoValidate = false;
+  String _usser;
+  String _email;
+  String _password;
+
+  String validateUsser(String value) {
+    //mejorar, que no permita simbolos
+    if (value.length < 3)
+      return 'Usuario debe ser de minimo 3 caracteres';
+    else
+      return null;
+  }
+
+  String validatePassword(String value) {
+    //mejorar, que no permita simbolos
+    if (value.length < 5)
+      return 'Contraseña debe ser de minimo 5 caracteres';
+    else
+      return null;
+  }
+
+  String validateEmail(String value) {
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value))
+      return 'Digite un email válido';
+    else
+      return null;
+  }
+
+//guardada final de la informacion si todo es correcto
+  void _validateInputs() {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      Navigator.pushNamed(context, RegistrationStep2.id);
+    } else {
+      setState(() {
+        _autoValidate = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,16 +71,13 @@ class _RegistrationStep1State extends State<RegistrationStep1> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              SizedBox(
-                height: 20,
-              ),
-              StepsHeader(
-                colorOne: kColorDoctor,
-                colorTwo: Color(0xFF282F3F),
-                colorTree: Color(0xFF282F3F),
-              ),
-              SizedBox(
-                height: 10,
+              Padding(
+                padding: const EdgeInsets.only(top: 15, bottom: 15),
+                child: StepsHeader(
+                  colorOne: kColorDoctor,
+                  colorTwo: Color(0xFF282F3F),
+                  colorTree: Color(0xFF282F3F),
+                ),
               ),
               Center(
                 child: Text(
@@ -56,7 +95,7 @@ class _RegistrationStep1State extends State<RegistrationStep1> {
                     child: Padding(
                       padding: EdgeInsets.all(20),
                       child: Form(
-                        autovalidate: true,
+                        autovalidate: false,
                         key: _formKey,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -67,15 +106,14 @@ class _RegistrationStep1State extends State<RegistrationStep1> {
                             Container(
                               decoration: kBoxFormDecoration,
                               child: TextFormField(
-                                decoration:
-                                    const InputDecoration(labelText: 'Usuario'),
+                                decoration: const InputDecoration(
+                                    labelText: 'Nombre Usuario'),
                                 keyboardType: TextInputType.text,
-                                validator: (value) {
-                                  if (value.length < 5) {
-                                    return 'Digite un nombre de mas de 4 caracteres';
-                                  }
+                                validator: validateUsser,
+                                onSaved: (String val) {
+                                  //este metodo solo se ejecutara al yo darle la intruccion al final de la validacion de todo el form
+                                  _usser = val;
                                 },
-                                onChanged: null,
                               ),
                             ),
                             SizedBox(
@@ -87,13 +125,10 @@ class _RegistrationStep1State extends State<RegistrationStep1> {
                                 decoration: const InputDecoration(
                                     labelText: 'correo electronico'),
                                 keyboardType: TextInputType.emailAddress,
-                                validator: (value) {
-                                  if (value.length < 2) {
-                                    // falta condicion
-                                    return 'Este correo no parece real';
-                                  }
+                                validator: validateEmail,
+                                onSaved: (String val) {
+                                  _email = val;
                                 },
-                                onChanged: null,
                               ),
                             ),
                             SizedBox(
@@ -106,31 +141,30 @@ class _RegistrationStep1State extends State<RegistrationStep1> {
                                 decoration: const InputDecoration(
                                     labelText: 'contraseña'),
                                 keyboardType: TextInputType.emailAddress,
-                                validator: (value) {
-                                  if (value.length < 2) {
-                                    //falta condicion
-                                    // falta condicion
-                                    return 'Este correo no parece real';
-                                  }
+                                validator: validatePassword,
+                                onChanged: (value) {
+                                  _password = value;
                                 },
-                                onChanged: null,
                               ),
                             ),
                             SizedBox(height: 20),
                             Container(
                               decoration: kBoxFormDecoration,
                               child: TextFormField(
+                                obscureText: true,
                                 decoration: const InputDecoration(
                                     labelText: 'Confirmar contraseña'),
                                 keyboardType: TextInputType.emailAddress,
                                 validator: (value) {
-                                  if (value.length < 2) {
-                                    //falta condicion si es igual a la anterior
-                                    // falta condicion
-                                    return 'Este correo no parece real';
+                                  if (value != _password) {
+                                    return 'Confirmacion de password incorrecta';
+                                  } else {
+                                    return null;
                                   }
                                 },
-                                onChanged: null,
+                                onSaved: (String val) {
+                                  _password = val;
+                                },
                               ),
                             ),
                             SizedBox(height: 20),
@@ -143,6 +177,7 @@ class _RegistrationStep1State extends State<RegistrationStep1> {
                                 Navigator.pushNamed(
                                     context, RegistrationStep2.id);
                               },
+                              // _validateInputs,
                               colour: kColorDoctor,
                             ),
                           ],
