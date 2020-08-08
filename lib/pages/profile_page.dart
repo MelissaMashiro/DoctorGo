@@ -24,7 +24,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.0,horizontal: 5.0),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
                     child: Material(
                       elevation: 5.0,
                       color: Colors.white,
@@ -64,101 +65,20 @@ class _ProfilePageState extends State<ProfilePage> {
               Expanded(
                 child: Container(
                   decoration: new BoxDecoration(
-                    
-                    border: new Border(top: BorderSide(color: kColorDoctor,width: 3.2)),
+                    border: new Border(
+                        top: BorderSide(color: kColorDoctor, width: 3.2)),
                     color: Colors.white,
                   ),
                   child: Padding(
                     padding: EdgeInsets.all(20),
                     child: ListView(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                'NOMBRE',
-                                style: TextStyle(
-                                    color: kColorDoctor,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Expanded(
-                                child: Text('Melissa Patricia Moras Jimenez'))
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                'EDAD',
-                                style: TextStyle(
-                                    color: kColorDoctor,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Expanded(child: Text('21 Años'))
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                'CÉDULA/T.I',
-                                style: TextStyle(
-                                    color: kColorDoctor,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Expanded(child: Text('12472155'))
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                'DIRECCIÓN',
-                                style: TextStyle(
-                                    color: kColorDoctor,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Expanded(child: Text(''))
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                                child: Text(
-                              'NÚCLEO FAMILIAR',
-                              style: TextStyle(
-                                  color: kColorDoctor,
-                                  fontWeight: FontWeight.bold),
-                            )),
-                            Expanded(
-                                child: Text('Incompleto',
-                                    style: TextStyle(color: Colors.red)))
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                                child: Text(
-                              'HISTORIAL CLÍNICO',
-                              style: TextStyle(
-                                  color: kColorDoctor,
-                                  fontWeight: FontWeight.bold),
-                            )),
-                            Expanded(
-                                child: Text('Incompleto',
-                                    style: TextStyle(color: Colors.red)))
-                          ],
-                        ),
+                        ProfileField(textLeft: 'NOMBRE',textRight: 'Melissa Moras Jimenez',),
+                        ProfileField(textLeft: 'EDAD',textRight: '21 Años',),
+                         ProfileField(textLeft: 'C.C/T.I',textRight: '124571544',),
+                         ProfileField(textLeft: 'DIRECCIÓN',textRight: '',),
+                         ProfileField(textLeft: 'NÚCLEO FAMILIAR',textRight: 'Incompleto',),
+                        ProfileField(textLeft: 'HISTORIAL MÉDICO',textRight: 'Incompleto',),
                         Column(
                           children: [
                             RoundedButton(
@@ -166,7 +86,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 'NÚCLEO FAMILIAR',
                                 style: TextStyle(color: Colors.white),
                               ),
-                              onPressed: ()=> Navigator.pushNamed(context, NucleoFamiliar.id),
+                              onPressed: () => Navigator.pushNamed(
+                                  context, NucleoFamiliar.id),
                               colour: kColorDoctor,
                             ),
                             RoundedButton(
@@ -188,6 +109,33 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ProfileField extends StatelessWidget {
+
+
+ProfileField({this.textLeft,this.textRight});
+final String textLeft;
+final String textRight;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: Text(
+            textLeft,
+            style: TextStyle(
+                color: kColorDoctor,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+        Expanded(
+            child: Text(textRight))
+      ],
     );
   }
 }

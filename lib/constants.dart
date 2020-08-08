@@ -10,6 +10,18 @@ const kPrimaryBarColor = Color(0xFF181C28);
 final kBoxFormDecoration = BoxDecoration(
     color: Color(0xFFF0F0F0), borderRadius: BorderRadius.circular(10));
 
+//boxdecoration de la caja azul de abajo del login
+const kBoxDecorationLogin = BoxDecoration(
+  boxShadow: [
+    BoxShadow(color: Colors.black, blurRadius: 18, offset: Offset(0, 4))
+  ],
+  color: Color(0xFF181C28),
+  borderRadius: BorderRadius.only(
+    topLeft: Radius.circular(35),
+    topRight: Radius.circular(35),
+  ),
+);
+
 //listas del dropDown
 const List kGeneros = ['Masculino', 'Femenino'];
 

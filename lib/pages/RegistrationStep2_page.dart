@@ -102,77 +102,29 @@ class _RegistrationStep2State extends State<RegistrationStep2> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 25, bottom: 25),
-                              child: Container(
-                                decoration: kBoxFormDecoration,
-                                child: TextFormField(
-                                  decoration:
-                                      const InputDecoration(labelText: 'Name'),
-                                  keyboardType: TextInputType.text,
-                                  validator: validateNomApe,
-                                  onSaved: (String val) {
-                                    _nombres = val;
-                                  },
-                                ),
-                              ),
-                            ),
-                            Container(
-                              decoration: kBoxFormDecoration,
-                              child: TextFormField(
-                                decoration: const InputDecoration(
-                                    labelText: 'Apellidos'),
-                                keyboardType: TextInputType.text,
-                                validator: validateNomApe,
-                                onSaved: (String val) {
-                                  _apellidos = val;
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Container(
-                              decoration: kBoxFormDecoration,
-                              child: TextFormField(
-                                decoration: const InputDecoration(
-                                    labelText: 'Cédula de ciudadania'),
-                                keyboardType: TextInputType.number,
-                                validator: validateCedula,
-                                onSaved: (String val) {
-                                  _cedula = val;
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            SizedBox(height: 20),
+                            _nombreInput(),
+                            _apellidoInput(),
+                            _ccInput(),
                             _crearFecha(context),
-                            SizedBox(height: 20),
                             _dropDownGenero('seleccione un género'),
-                            SizedBox(height: 20),
                             _dropDownTipoSangre('seleccione tipo de sangre'),
-                            SizedBox(height: 20),
                             _dropDownEstadoCivil('seleccione estado civil'),
-                            SizedBox(height: 20),
                             _numberInput('Digite su numero de celular'),
-                            SizedBox(height: 20),
                             _dropDownPais('seleccione pais'),
-                            SizedBox(height: 20),
                             _dropDownDepartamento('seleccione departamento'),
-                            SizedBox(height: 20),
                             _dropDownCiudad('Ciudad'),
-                            SizedBox(height: 20),
                             Center(
                               child: RoundedButton(
                                 text: Text(
-                                  'SIGUIENTE',
+                                  'CREAR CUENTA',
                                   style: TextStyle(color: Colors.white),
                                 ),
-                                onPressed:(){Navigator.pushNamed(context, RegistrationStep3.id);},
-                                // _validateInputs,
+                                onPressed:
+                                    /* () {
+                                  Navigator.pushNamed(
+                                      context, RegistrationStep3.id);
+                                },*/
+                                    _validateInputs,
                                 colour: kColorDoctor,
                               ),
                             ),
@@ -190,93 +142,100 @@ class _RegistrationStep2State extends State<RegistrationStep2> {
     );
   }
 
-  Widget _nombreInput(String hintText) {
-    return Container(
-      decoration: kBoxFormDecoration,
-      child: TextFormField(
-        decoration: const InputDecoration(labelText: 'Name'),
-        keyboardType: TextInputType.text,
-        validator: (value) {
-          if (value.length < 2) {
-            return 'Name not long enough';
-          }
-        },
-        onChanged: null,
+  Widget _nombreInput() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        decoration: kBoxFormDecoration,
+        child: TextFormField(
+          decoration: const InputDecoration(labelText: 'Nombres'),
+          keyboardType: TextInputType.text,
+          validator: validateNomApe,
+          onSaved: (String val) {
+            _nombres = val;
+          },
+        ),
       ),
     );
   }
 
-  Widget _apellidoInput(String hintText) {
-    return Container(
-      decoration: kBoxFormDecoration,
-      child: TextField(
-        style: TextStyle(color: Colors.grey),
-        cursorColor: Colors.white,
-        autofocus: false,
-        textCapitalization: TextCapitalization.sentences,
-        decoration: InputDecoration(
-          hintStyle: TextStyle(color: Colors.grey),
-          hintText: hintText,
+  Widget _apellidoInput() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        decoration: kBoxFormDecoration,
+        child: TextFormField(
+          decoration: const InputDecoration(labelText: 'Apellidos'),
+          keyboardType: TextInputType.text,
+          validator: validateNomApe,
+          onSaved: (String val) {
+            _apellidos = val;
+          },
         ),
-        onChanged: (valor) {},
       ),
     );
   }
 
-  Widget _ccInput(String hintText) {
-    return Container(
-      decoration: kBoxFormDecoration,
-      child: TextField(
-        keyboardType: TextInputType.number,
-        style: TextStyle(color: Colors.grey),
-        cursorColor: Colors.white,
-        autofocus: false,
-        decoration: InputDecoration(
-          hintStyle: TextStyle(color: Colors.grey),
-          hintText: hintText,
+  Widget _ccInput() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        decoration: kBoxFormDecoration,
+        child: TextFormField(
+          decoration: const InputDecoration(labelText: 'Cédula de ciudadania'),
+          keyboardType: TextInputType.number,
+          validator: validateCedula,
+          onSaved: (String val) {
+            _cedula = val;
+          },
         ),
-        onChanged: (valor) {},
       ),
     );
   }
 
   Widget _numberInput(String hintText) {
-    return Container(
-      decoration: kBoxFormDecoration,
-      child: TextField(
-        keyboardType: TextInputType.phone,
-        style: TextStyle(color: Colors.grey),
-        cursorColor: Colors.white,
-        autofocus: false,
-        decoration: InputDecoration(
-          hintStyle: TextStyle(color: Colors.grey),
-          hintText: hintText,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        decoration: kBoxFormDecoration,
+        child: TextField(
+          keyboardType: TextInputType.phone,
+          style: TextStyle(color: Colors.grey),
+          cursorColor: Colors.white,
+          autofocus: false,
+          decoration: InputDecoration(
+            hintStyle: TextStyle(color: Colors.grey),
+            hintText: hintText,
+          ),
+          onChanged: (valor) {},
         ),
-        onChanged: (valor) {},
       ),
     );
   }
 
   Widget _crearFecha(BuildContext context) {
-    return Container(
-      decoration: kBoxFormDecoration,
-      child: TextField(
-        style: TextStyle(color: Colors.grey),
-        cursorColor: Colors.white,
-        autofocus: false,
-        enableInteractiveSelection: false,
-        controller: _inputFieldDateControlleer,
-        decoration: InputDecoration(
-            hintText: 'Fecha de nacimiento',
-            helperText: 'Fecha de nacimiento',
-            suffixIcon: Icon(Icons.perm_contact_calendar),
-            icon: Icon(Icons.calendar_today)),
-        onTap: () {
-          //al tocarlo se habra el selector de fecha
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        decoration: kBoxFormDecoration,
+        child: TextField(
+          style: TextStyle(color: Colors.grey),
+          cursorColor: Colors.white,
+          autofocus: false,
+          enableInteractiveSelection: false,
+          controller: _inputFieldDateControlleer,
+          decoration: InputDecoration(
+              hintText: 'Fecha de nacimiento',
+              helperText: 'Fecha de nacimiento',
+              suffixIcon: Icon(Icons.perm_contact_calendar),
+              icon: Icon(Icons.calendar_today)),
+          onTap: () {
+            //al tocarlo se habra el selector de fecha
 
-          FocusScope.of(context).requestFocus(new FocusNode());
-          _selectDate(context);
-        },
+            FocusScope.of(context).requestFocus(new FocusNode());
+            _selectDate(context);
+          },
+        ),
       ),
     );
   }
@@ -317,127 +276,145 @@ class _RegistrationStep2State extends State<RegistrationStep2> {
   }
 
   Widget _dropDownGenero(String hintText) {
-    return Container(
-      decoration: kBoxFormDecoration,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          SizedBox(width: 30.0),
-          DropdownButton(
-              hint: Text(hintText),
-              value: generoSeleccionado,
-              items: getOpcionesDropdown(kGeneros),
-              onChanged: (opt) {
-                setState(() {
-                  generoSeleccionado = opt;
-                });
-              })
-        ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        decoration: kBoxFormDecoration,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            SizedBox(width: 30.0),
+            DropdownButton(
+                hint: Text(hintText),
+                value: generoSeleccionado,
+                items: getOpcionesDropdown(kGeneros),
+                onChanged: (opt) {
+                  setState(() {
+                    generoSeleccionado = opt;
+                  });
+                })
+          ],
+        ),
       ),
     );
   }
 
   Widget _dropDownTipoSangre(String hintText) {
-    return Container(
-      decoration: kBoxFormDecoration,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          SizedBox(width: 30.0),
-          DropdownButton(
-              hint: Text(hintText),
-              value: tipoSangreSeleccionado,
-              items: getOpcionesDropdown(kTiposSangre),
-              onChanged: (opt) {
-                setState(() {
-                  tipoSangreSeleccionado = opt;
-                });
-              })
-        ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        decoration: kBoxFormDecoration,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            SizedBox(width: 30.0),
+            DropdownButton(
+                hint: Text(hintText),
+                value: tipoSangreSeleccionado,
+                items: getOpcionesDropdown(kTiposSangre),
+                onChanged: (opt) {
+                  setState(() {
+                    tipoSangreSeleccionado = opt;
+                  });
+                })
+          ],
+        ),
       ),
     );
   }
 
   Widget _dropDownEstadoCivil(String hintText) {
-    return Container(
-      decoration: kBoxFormDecoration,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          SizedBox(width: 30.0),
-          DropdownButton(
-              hint: Text(hintText),
-              value: estadoCivilSeleccionado,
-              items: getOpcionesDropdown(kEstadoCivil),
-              onChanged: (opt) {
-                setState(() {
-                  estadoCivilSeleccionado = opt;
-                });
-              })
-        ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        decoration: kBoxFormDecoration,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            SizedBox(width: 30.0),
+            DropdownButton(
+                hint: Text(hintText),
+                value: estadoCivilSeleccionado,
+                items: getOpcionesDropdown(kEstadoCivil),
+                onChanged: (opt) {
+                  setState(() {
+                    estadoCivilSeleccionado = opt;
+                  });
+                })
+          ],
+        ),
       ),
     );
   }
 
   Widget _dropDownPais(String hintText) {
-    return Container(
-      decoration: kBoxFormDecoration,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          SizedBox(width: 30.0),
-          DropdownButton(
-              hint: Text(hintText),
-              value: paisSeleccionado,
-              items: getOpcionesDropdown(kPaises),
-              onChanged: (opt) {
-                setState(() {
-                  paisSeleccionado = opt;
-                });
-              })
-        ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        decoration: kBoxFormDecoration,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            SizedBox(width: 30.0),
+            DropdownButton(
+                hint: Text(hintText),
+                value: paisSeleccionado,
+                items: getOpcionesDropdown(kPaises),
+                onChanged: (opt) {
+                  setState(() {
+                    paisSeleccionado = opt;
+                  });
+                })
+          ],
+        ),
       ),
     );
   }
 
   Widget _dropDownDepartamento(String hintText) {
-    return Container(
-      decoration: kBoxFormDecoration,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          SizedBox(width: 30.0),
-          DropdownButton(
-              hint: Text(hintText),
-              value: departamentoSeleccionado,
-              items: getOpcionesDropdown(kDepartamentos),
-              onChanged: (opt) {
-                setState(() {
-                  departamentoSeleccionado = opt;
-                });
-              })
-        ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        decoration: kBoxFormDecoration,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            SizedBox(width: 30.0),
+            DropdownButton(
+                hint: Text(hintText),
+                value: departamentoSeleccionado,
+                items: getOpcionesDropdown(kDepartamentos),
+                onChanged: (opt) {
+                  setState(() {
+                    departamentoSeleccionado = opt;
+                  });
+                })
+          ],
+        ),
       ),
     );
   }
 
   Widget _dropDownCiudad(String hintText) {
-    return Container(
-      decoration: kBoxFormDecoration,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          SizedBox(width: 30.0),
-          DropdownButton(
-              hint: Text(hintText),
-              value: ciudadSeleccionado,
-              items: getOpcionesDropdown(kCiudades),
-              onChanged: (opt) {
-                setState(() {
-                  ciudadSeleccionado = opt;
-                });
-              })
-        ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        decoration: kBoxFormDecoration,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            SizedBox(width: 30.0),
+            DropdownButton(
+                hint: Text(hintText),
+                value: ciudadSeleccionado,
+                items: getOpcionesDropdown(kCiudades),
+                onChanged: (opt) {
+                  setState(() {
+                    ciudadSeleccionado = opt;
+                  });
+                })
+          ],
+        ),
       ),
     );
   }

@@ -107,7 +107,7 @@ class _RegistrationStep1State extends State<RegistrationStep1> {
                               decoration: kBoxFormDecoration,
                               child: TextFormField(
                                 decoration: const InputDecoration(
-                                    labelText: 'Nombre Usuario'),
+                                    labelText: 'Usuario'),
                                 keyboardType: TextInputType.text,
                                 validator: validateUsser,
                                 onSaved: (String val) {
@@ -173,11 +173,11 @@ class _RegistrationStep1State extends State<RegistrationStep1> {
                                 'SIGUIENTE',
                                 style: TextStyle(color: Colors.white),
                               ),
-                              onPressed: () {
+                              onPressed: /*() {
                                 Navigator.pushNamed(
                                     context, RegistrationStep2.id);
-                              },
-                              // _validateInputs,
+                              },*/
+                               _validateInputs,
                               colour: kColorDoctor,
                             ),
                           ],
